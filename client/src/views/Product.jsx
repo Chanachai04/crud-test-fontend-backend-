@@ -58,7 +58,7 @@ export default function FormProduct() {
                                         {index + 1}
                                     </TableCell>
                                     <TableCell align="center">
-                                        <img src={item.file} alt="" />
+                                        <img src={item.file} alt={item.name || "No Image"} />
                                     </TableCell>
                                     <TableCell align="center">{item.name}</TableCell>
                                     <TableCell align="center">{item.detail}</TableCell>
