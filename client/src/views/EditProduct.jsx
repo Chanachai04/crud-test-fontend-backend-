@@ -1,7 +1,7 @@
 import {useState, useEffect} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import {read, update} from "../functions/product";
-import Nav from "./Nav";
+import Nav from "../components/Nav";
 function FormEditProduct() {
     const params = useParams();
     const navigate = useNavigate();

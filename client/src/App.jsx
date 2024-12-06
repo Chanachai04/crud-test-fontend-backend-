@@ -1,13 +1,14 @@
-import FormEditProduct from "./components/FormEditProduct";
-import FormProduct from "./components/FormProduct";
-import {BrowserRouter, Link, Route, Routes} from "react-router-dom";
-import EnhancedTable from "./components/tmp";
+import CreateProduct from "./views/CreateProduct";
+import FormEditProduct from "./views/EditProduct";
+import FormProduct from "./views/Product";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
 function App() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<EnhancedTable />} />
+                <Route path="/" element={<FormProduct />} />
                 <Route path="/edit/:id" element={<FormEditProduct />} />
+                <Route path="/create-product" element={<CreateProduct />} />
             </Routes>
         </BrowserRouter>
     );

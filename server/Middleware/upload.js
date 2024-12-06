@@ -15,7 +15,7 @@ const storage = multer.diskStorage({
         })
             .format(now)
             .replace(/[/, :]/g, "-");
-        cb(null, timestamp + "-" + file.originalname);
+        cb(null, timestamp + "-" + file.originalname.replace(/\s+/g, "-"));
     },
 });
 
