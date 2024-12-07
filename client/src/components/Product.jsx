@@ -8,9 +8,10 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import {Link} from "react-router-dom";
-import Nav from "../components/Nav";
+import Nav from "./Nav";
 import {Box, Button, Typography} from "@mui/material";
-export default function FormProduct() {
+
+function Product() {
     const [data, setData] = useState([]);
 
     useEffect(() => {
@@ -30,7 +31,6 @@ export default function FormProduct() {
     };
     return (
         <>
-            <Nav />
             <Box sx={{width: "1200px", mx: "auto", mt: 5}}>
                 <Box sx={{display: "flex", justifyContent: "space-between", alignItems: "center", mb: 3}}>
                     <Typography variant="h5">สินค้า</Typography>
@@ -58,7 +58,7 @@ export default function FormProduct() {
                                         {index + 1}
                                     </TableCell>
                                     <TableCell align="center">
-                                        <img src={item.file} alt={item.name || "No Image"} />
+                                        <img src={item.file} alt={item.file} />
                                     </TableCell>
                                     <TableCell align="center">{item.name}</TableCell>
                                     <TableCell align="center">{item.detail}</TableCell>
@@ -82,3 +82,5 @@ export default function FormProduct() {
         </>
     );
 }
+
+export default Product;

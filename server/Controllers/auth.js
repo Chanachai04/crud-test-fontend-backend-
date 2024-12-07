@@ -8,7 +8,7 @@ exports.register = async (req, res) => {
 
         let user = await User.findOne({name});
         if (user) {
-            return res.status(400).send("User already exists");
+            return res.send("User already exists");
         }
         // Encrypt
         const salt = await bcrypt.genSalt(10);

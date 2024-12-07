@@ -1,26 +1,14 @@
-import {useState, useEffect} from "react";
-import {Link, useNavigate, useParams} from "react-router-dom";
-import {read, update} from "../functions/product";
 import {Box, TextField, Typography} from "@mui/material";
+import Nav from "./Nav";
+import {create, list} from "../functions/product";
+import {useState} from "react";
 import {styled} from "@mui/material/styles";
-
-import Nav from "../components/Nav";
 import Button from "@mui/material/Button";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-function FormEditProduct() {
-    const params = useParams();
+import {Link, useNavigate} from "react-router-dom";
+function CreateProduct() {
+    const [form, setForm] = useState({});
     const navigate = useNavigate();
-    const [data, setData] = useState({
-        name: "",
-        detail: "",
-        price: "",
-    });
-    const [fileOld, setFileOld] = useState();
-
-    useEffect(() => {
-        loadData(params.id);
-        console.log(data);
-    }, []);
     const VisuallyHiddenInput = styled("input")({
         clip: "rect(0 0 0 0)",
         clipPath: "inset(50%)",
@@ -32,39 +20,38 @@ function FormEditProduct() {
         whiteSpace: "nowrap",
         width: 1,
     });
-    const loadData = async (id) => {
-        read(id)
+    const loadData = async () => {
+        await axios;
+        list()
+            .then((res) => setData(res.data))
+            .catch((err) => console.log(err));
+    };
+    const handleSubmit = async (e) => {
+        const formWithImageData = new FormData();
+        for (const key in form) {
+            formWithImageData.append(key, form[key]);
+        }
+        create(formWithImageData)
             .then((res) => {
-                setData(res.data);
-                setFileOld(res.data.file);
+                loadData();
             })
             .catch((err) => console.log(err));
+        navigate("/");
     };
     const handleChange = (e) => {
         if (e.target.name === "file") {
-            setData({
-                ...data,
+            setForm({
+                ...form,
                 [e.target.name]: e.target.files[0],
             });
         } else {
-            setData({
-                ...data,
+            setForm({
+                ...form,
                 [e.target.name]: e.target.value,
             });
         }
     };
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        console.log(data);
-        const formWithImageData = new FormData();
-        for (const key in data) {
-            formWithImageData.append(key, data[key]);
-        }
-        formWithImageData.append("fileOld", fileOld);
-        update(params.id, formWithImageData)
-            .then((res) => navigate("/"))
-            .catch((err) => console.log(err));
-    };
+
     return (
         <>
             <Nav />
@@ -73,16 +60,16 @@ function FormEditProduct() {
                     เพิ่มสินค้า
                 </Typography>
                 <Box sx={{display: "flex", justifyContent: "space-between", alignItems: "center", mb: 3}}>
-                    <TextField name="name" onChange={(e) => handleChange(e)} value={data.name} label="ชื่อสินค้า" variant="outlined" sx={{width: "48%"}} />
-                    <TextField name="detail" onChange={(e) => handleChange(e)} value={data.detail} label="รายละเอียดสินค้า" variant="outlined" sx={{width: "48%"}} />
+                    <TextField name="name" onChange={(e) => handleChange(e)} label="ชื่อสินค้า" variant="outlined" sx={{width: "48%"}} />
+                    <TextField name="detail" onChange={(e) => handleChange(e)} label="รายละเอียดสินค้า" variant="outlined" sx={{width: "48%"}} />
                 </Box>
                 <Box sx={{mb: 3}}>
-                    <TextField name="price" onChange={(e) => handleChange(e)} value={data.price} label="ราคา" variant="outlined" sx={{width: "48%"}} />
+                    <TextField name="price" onChange={(e) => handleChange(e)} label="ราคา" variant="outlined" sx={{width: "48%"}} />
                 </Box>
-
+                <Box sx={{display: "flex", alignItems: "center", mb: 2}}>{form.file && <img src={URL.createObjectURL(form.file)} width="15%" alt="preview" />}</Box>
                 <Box sx={{mb: 2}}>
                     <Button component="label" role={undefined} variant="contained" tabIndex={-1} startIcon={<CloudUploadIcon />}>
-                        เปลี่ยนรูป
+                        {form.file ? "เพิ่มรูปแล้ว" : "เพิ่มรูป"}
                         <VisuallyHiddenInput type="file" name="file" onChange={(e) => handleChange(e)} multiple />
                     </Button>
                 </Box>
@@ -90,7 +77,7 @@ function FormEditProduct() {
                     <Button component={Link} to="/" variant="contained" sx={{mr: 2}} color="error">
                         ยกเลิก
                     </Button>
-                    <Button type="submit" onClick={handleSubmit} variant="contained" color="success">
+                    <Button type="submit" variant="contained" color="success">
                         บันทึก
                     </Button>
                 </Box>
@@ -98,4 +85,4 @@ function FormEditProduct() {
         </>
     );
 }
-export default FormEditProduct;
+export default CreateProduct;
