@@ -1,11 +1,11 @@
 import {Box, TextField, Typography} from "@mui/material";
-import Nav from "./Nav";
 import {create, list} from "../functions/product";
 import {useState} from "react";
 import {styled} from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import {Link, useNavigate} from "react-router-dom";
+import NavAdmin from "./NavAdmin";
 function CreateProduct() {
     const [form, setForm] = useState({});
     const navigate = useNavigate();
@@ -34,9 +34,10 @@ function CreateProduct() {
         create(formWithImageData)
             .then((res) => {
                 loadData();
+                console.log(res.data);
             })
             .catch((err) => console.log(err));
-        navigate("/");
+        navigate("/admin/manage");
     };
     const handleChange = (e) => {
         if (e.target.name === "file") {
@@ -54,7 +55,7 @@ function CreateProduct() {
 
     return (
         <>
-            <Nav />
+            <NavAdmin />
             <Box component="form" onSubmit={handleSubmit} encType="multipart/form-data" sx={{width: "1200px", mx: "auto", mt: 5}}>
                 <Typography variant="h4" sx={{mb: 3}}>
                     เพิ่มสินค้า
@@ -74,7 +75,7 @@ function CreateProduct() {
                     </Button>
                 </Box>
                 <Box sx={{display: "flex"}}>
-                    <Button component={Link} to="/" variant="contained" sx={{mr: 2}} color="error">
+                    <Button component={Link} to="/admin/manage" variant="contained" sx={{mr: 2}} color="error">
                         ยกเลิก
                     </Button>
                     <Button type="submit" variant="contained" color="success">

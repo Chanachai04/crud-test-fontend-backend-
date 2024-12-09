@@ -3,10 +3,9 @@ import {Link, useNavigate, useParams} from "react-router-dom";
 import {read, update} from "../functions/product";
 import {Box, TextField, Typography} from "@mui/material";
 import {styled} from "@mui/material/styles";
-
-import Nav from "./Nav";
 import Button from "@mui/material/Button";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import NavAdmin from "./NavAdmin";
 function FormEditProduct() {
     const params = useParams();
     const navigate = useNavigate();
@@ -61,12 +60,12 @@ function FormEditProduct() {
         }
         formWithImageData.append("fileOld", fileOld);
         update(params.id, formWithImageData)
-            .then((res) => navigate("/"))
+            .then((res) => navigate("/admin/manage"))
             .catch((err) => console.log(err));
     };
     return (
         <>
-            <Nav />
+            <NavAdmin />
             <Box component="form" onSubmit={handleSubmit} encType="multipart/form-data" sx={{width: "1200px", mx: "auto", mt: 5}}>
                 <Typography variant="h4" sx={{mb: 3}}>
                     เพิ่มสินค้า
@@ -86,7 +85,7 @@ function FormEditProduct() {
                     </Button>
                 </Box>
                 <Box sx={{display: "flex"}}>
-                    <Button component={Link} to="/" variant="contained" sx={{mr: 2}} color="error">
+                    <Button component={Link} to="/admin/manage" variant="contained" sx={{mr: 2}} color="error">
                         ยกเลิก
                     </Button>
                     <Button type="submit" onClick={handleSubmit} variant="contained" color="success">

@@ -8,8 +8,8 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import {Link} from "react-router-dom";
-import Nav from "./Nav";
 import {Box, Button, Typography} from "@mui/material";
+import NavAdmin from "./NavAdmin";
 
 function Product() {
     const [data, setData] = useState([]);
@@ -31,6 +31,7 @@ function Product() {
     };
     return (
         <>
+            <NavAdmin />
             <Box sx={{width: "1200px", mx: "auto", mt: 5}}>
                 <Box sx={{display: "flex", justifyContent: "space-between", alignItems: "center", mb: 3}}>
                     <Typography variant="h5">สินค้า</Typography>

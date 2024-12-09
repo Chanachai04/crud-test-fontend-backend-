@@ -43,6 +43,7 @@ exports.login = async (req, res) => {
         const payload = {
             user: {
                 name: user.name,
+                role: user.role,
             },
         };
         // Genarate Token
@@ -50,6 +51,17 @@ exports.login = async (req, res) => {
             if (err) throw err;
             res.json({token, payload});
         });
+    } catch (err) {
+        console.log(err);
+        res.status(500).send("Server Error");
+    }
+};
+
+exports.curentUser = async (req, res) => {
+    try {
+        console.log("Current User", req.user);
+        const user = await User.findOne({name: req.user.name}).select("-password").exec();
+        res.send(user);
     } catch (err) {
         console.log(err);
         res.status(500).send("Server Error");
