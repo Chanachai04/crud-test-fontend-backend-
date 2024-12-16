@@ -32,6 +32,7 @@ function App() {
             <Routes>
                 {/* Public Route */}
                 <Route path="*" element={<Notfound404 text="The page you're looking for doesn't exist." />} />
+                <Route path="/" element={<Login />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
 

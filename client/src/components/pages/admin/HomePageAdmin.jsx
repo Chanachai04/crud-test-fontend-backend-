@@ -1,4 +1,6 @@
+import NavAdmin from "../../NavAdmin";
+
 function HomePageAdmin() {
-    return <div>HomePageAdmin</div>;
+    return <></>;
 }
 export default HomePageAdmin;

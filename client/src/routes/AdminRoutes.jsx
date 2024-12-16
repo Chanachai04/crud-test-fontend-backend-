@@ -2,6 +2,7 @@ import {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
 import {curentAdmin} from "../functions/auth";
 import Notfound404 from "../components/pages/Notfound404";
+import NavAdmin from "../components/NavAdmin";
 
 function AdminRoutes({children}) {
     const {user} = useSelector((state) => ({...state}));
@@ -17,6 +18,13 @@ function AdminRoutes({children}) {
         }
     }, [user]);
     console.log("AdminRoutes", user);
-    return ok ? children : <Notfound404 text="No Permission" />;
+    return ok ? (
+        <>
+            <NavAdmin />
+            {children}
+        </>
+    ) : (
+        <Notfound404 text="No Permission" />
+    );
 }
 export default AdminRoutes;

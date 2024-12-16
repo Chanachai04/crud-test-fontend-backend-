@@ -4,39 +4,48 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import DeviceHubIcon from "@mui/icons-material/DeviceHub";
-import AccountCircle from "@mui/icons-material/AccountCircle";
+import {Link} from "react-router-dom";
 import {Avatar, Menu, MenuItem, Tooltip} from "@mui/material";
 import {useState} from "react";
-import {useSelector} from "react-redux";
 
-function NavAdmin() {
-    const [anchorElAdmin, setAnchorElAdmin] = useState(null);
-
-    const settings = ["Profile", "Dashboard", "Setting", "Logout"];
-    const handleOpenAdminMenu = (e) => {
-        setAnchorElAdmin(e.currentTarget);
+function Nav() {
+    const [anchorElUser, setAnchorElUser] = useState(null);
+    const settings = ["Profile", "Setting", "Logout"];
+    const handleOpenUserMenu = (e) => {
+        setAnchorElUser(e.currentTarget);
     };
-    const handleCloseAdminMenu = () => {
-        setAnchorElAdmin(null);
+    const handleCloseUserMenu = () => {
+        setAnchorElUser(null);
     };
     return (
         <Box sx={{flexGrow: 1}}>
             <AppBar position="static">
                 <Toolbar sx={{display: "flex", justifyContent: "space-between"}}>
-                    <Typography variant="h6" sx={{display: "flex", alignItems: "center"}}>
-                        <DeviceHubIcon sx={{mr: 1}} />
-                        My App
-                    </Typography>
+                    <Box sx={{display: "flex", alignItems: "center"}}>
+                        <DeviceHubIcon />
+                        <Typography variant="h6">My App</Typography>
+                    </Box>
+                    <Box sx={{display: "flex"}}>
+                        <Typography sx={{mr: 3, textDecoration: "none", color: "white"}} component={Link} to="/">
+                            Home
+                        </Typography>
+                        <Typography sx={{mr: 3, textDecoration: "none", color: "white"}} component={Link} to="/">
+                            About
+                        </Typography>
+                        <Typography sx={{mr: 3, textDecoration: "none", color: "white"}} component={Link} to="/">
+                            Contact
+                        </Typography>
+                    </Box>
                     <Box sx={{flexGrow: 0}}>
                         <Tooltip title="Open settings">
-                            <IconButton onClick={handleOpenAdminMenu} sx={{p: 0}}>
+                            <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
                                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
                             </IconButton>
                         </Tooltip>
                         <Menu
                             sx={{mt: "45px"}}
                             id="menu-appbar"
-                            anchorEl={anchorElAdmin}
+                            anchorEl={anchorElUser}
                             anchorOrigin={{
                                 vertical: "top",
                                 horizontal: "right",
@@ -46,11 +55,11 @@ function NavAdmin() {
                                 vertical: "top",
                                 horizontal: "right",
                             }}
-                            open={Boolean(anchorElAdmin)}
-                            onClose={handleCloseAdminMenu}
+                            open={Boolean(anchorElUser)}
+                            onClose={handleCloseUserMenu}
                         >
                             {settings.map((setting) => (
-                                <MenuItem key={setting} onClick={handleCloseAdminMenu}>
+                                <MenuItem key={setting} onClick={handleCloseUserMenu}>
                                     <Typography sx={{textAlign: "center"}}>{setting}</Typography>
                                 </MenuItem>
                             ))}
@@ -61,4 +70,4 @@ function NavAdmin() {
         </Box>
     );
 }
-export default NavAdmin;
+export default Nav;
