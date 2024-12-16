@@ -18,3 +18,14 @@ export const curentUser = async (authtoken) => {
         }
     );
 };
+export const curentAdmin = async (authtoken) => {
+    return await axios.post(
+        import.meta.env.VITE_APP_API + "/current-admin",
+        {},
+        {
+            headers: {
+                authtoken,
+            },
+        }
+    );
+};

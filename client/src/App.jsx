@@ -3,7 +3,7 @@ import FormEditProduct from "./components/EditProduct";
 import Login from "./components/pages/auth/Login";
 import Register from "./components/pages/auth/Register";
 import HomePageUser from "./components/pages/user/HomePageUser";
-import Product from "./components/Product";
+import ProductManage_Amin from "./components/ProductManage_Amin";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import AdminRoutes from "./routes/AdminRoutes";
 import UserRoutes from "./routes/UserRoutes";
@@ -11,6 +11,7 @@ import HomePageAdmin from "./components/pages/admin/HomePageAdmin";
 import {curentUser} from "./functions/auth";
 import {useDispatch} from "react-redux";
 import {login} from "./store/userSlice";
+import Notfound404 from "./components/pages/Notfound404";
 function App() {
     const dispatch = useDispatch();
     const idToken = localStorage.getItem("token");
@@ -30,6 +31,7 @@ function App() {
         <BrowserRouter>
             <Routes>
                 {/* Public Route */}
+                <Route path="*" element={<Notfound404 text="The page you're looking for doesn't exist." />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
 
@@ -46,7 +48,7 @@ function App() {
                     path="/admin/manage"
                     element={
                         <AdminRoutes>
-                            <Product />
+                            <ProductManage_Amin />
                         </AdminRoutes>
                     }
                 />
