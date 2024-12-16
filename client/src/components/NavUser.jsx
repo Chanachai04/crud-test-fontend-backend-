@@ -8,7 +8,7 @@ import {Link} from "react-router-dom";
 import {Avatar, Menu, MenuItem, Tooltip} from "@mui/material";
 import {useState} from "react";
 
-function Nav() {
+function NavUser() {
     const [anchorElUser, setAnchorElUser] = useState(null);
     const settings = ["Profile", "Setting", "Logout"];
     const handleOpenUserMenu = (e) => {
@@ -70,4 +70,4 @@ function Nav() {
         </Box>
     );
 }
-export default Nav;
+export default NavUser;
